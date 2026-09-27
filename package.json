@@ -1,0 +1,12 @@
+{
+  "name": "saml-certificate-rollover-preflight",
+  "version": "0.1.0",
+  "description": "Deterministic SAML signing-certificate rollover contract preflight",
+  "type": "module",
+  "bin": { "saml-rollover-preflight": "src/cli.mjs" },
+  "scripts": { "test": "node --test", "preflight:safe": "node src/cli.mjs examples/safe/contract.json --json", "preflight:incident": "node src/cli.mjs examples/incident/contract.json --json" },
+  "keywords": ["saml", "certificate", "rollover", "adfs", "sso", "identity", "github-action", "security"],
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "files": ["src", "index.html", "action.yml", "examples", "docs", "README.md", "LICENSE"]
+}

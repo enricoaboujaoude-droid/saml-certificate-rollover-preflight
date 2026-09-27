@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0.0",
+  "tool": {
+    "name": "saml-certificate-rollover-preflight",
+    "version": "0.1.0"
+  },
+  "status": "BLOCK",
+  "evaluatedAt": "2026-09-27T16:00:00.000Z",
+  "summary": {
+    "blockCount": 8,
+    "reviewCount": 1,
+    "oldSignerCount": 1,
+    "newSignerCount": 1
+  },
+  "metadata": {
+    "current": {
+      "entityId": "https://idp.example.test",
+      "validUntil": "2028-09-26T09:32:05Z",
+      "services": [
+        {
+          "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
+          "location": "https://idp.example.test/sso"
+        }
+      ],
+      "fingerprints": [
+        "625152B7E795290EEDDA0CD4BFD67803AB0395296F8DBFC742E89BACF9677054"
+      ]
+    },
+    "next": {
+      "entityId": "https://changed-idp.example.test",
+      "validUntil": "2026-09-28T00:00:00Z",
+      "services": [
+        {
+          "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
+          "location": "https://changed-idp.example.test/sso"
+        }
+      ],
+      "fingerprints": [
+        "B223E834D681A6D79DFDB0184B92F0310619016D6865AD7CD4739CAB61EC3536"
+      ]
+    }
+  },
+  "trust": {
+    "current": [],
+    "overlap": [
+      "625152B7E795290EEDDA0CD4BFD67803AB0395296F8DBFC742E89BACF9677054"
+    ],
+    "final": [
+      "625152B7E795290EEDDA0CD4BFD67803AB0395296F8DBFC742E89BACF9677054"
+    ]
+  },
+  "acceptanceMatrix": [
+    {
+      "signer": "old",
+      "fingerprint": "625152B7E795290EEDDA0CD4BFD67803AB0395296F8DBFC742E89BACF9677054",
+      "current": false,
+      "overlap": true,
+      "final": true
+    },
+    {
+      "signer": "new",
+      "fingerprint": "B223E834D681A6D79DFDB0184B92F0310619016D6865AD7CD4739CAB61EC3536",
+      "current": false,
+      "overlap": false,
+      "final": false
+    }
+  ],
+  "findings": [
+    {
+      "ruleId": "SAML-ENTITY-ID-CHANGED",
+      "level": "BLOCK",
+      "message": "entityID changes during a certificate-only rollover.",
+      "evidence": {
+        "current": "https://idp.example.test",
+        "next": "https://changed-idp.example.test"
+      }
+    },
+    {
+      "ruleId": "SAML-ENTITY-ID-POLICY",
+      "level": "BLOCK",
+      "message": "Metadata does not match requiredEntityId.",
+      "evidence": {
+        "required": "https://idp.example.test"
+      }
+    },
+    {
+      "ruleId": "SAML-SSO-ENDPOINT-CHANGED",
+      "level": "BLOCK",
+      "message": "SSO endpoint or binding changes during a certificate-only rollover.",
+      "evidence": {
+        "current": [
+          "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect|https://idp.example.test/sso"
+        ],
+        "next": [
+          "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST|https://changed-idp.example.test/sso"
+        ]
+      }
+    },
+    {
+      "ruleId": "SAML-WEAK-SIGNATURE-ALGORITHM",
+      "level": "BLOCK",
+      "message": "next metadata advertises a weak signature algorithm.",
+      "evidence": {
+        "algorithms": [
+          "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+        ]
+      }
+    },
+    {
+      "ruleId": "SAML-METADATA-EXPIRY-WINDOW",
+      "level": "REVIEW",
+      "message": "next metadata expires within 30 days.",
+      "evidence": {
+        "validUntil": "2026-09-28T00:00:00Z"
+      }
+    },
+    {
+      "ruleId": "SAML-CURRENT-REJECTS-OLD",
+      "level": "BLOCK",
+      "message": "Current trust does not accept every current signing certificate.",
+      "evidence": {}
+    },
+    {
+      "ruleId": "SAML-OVERLAP-INCOMPLETE",
+      "level": "BLOCK",
+      "message": "Overlap trust must accept every old and new signing certificate.",
+      "evidence": {}
+    },
+    {
+      "ruleId": "SAML-FINAL-REJECTS-NEW",
+      "level": "BLOCK",
+      "message": "Final trust does not accept every new signing certificate.",
+      "evidence": {}
+    },
+    {
+      "ruleId": "SAML-FINAL-RETAINS-OLD",
+      "level": "BLOCK",
+      "message": "Final trust retains an old signer beyond policy.",
+      "evidence": {
+        "fingerprints": [
+          "625152B7E795290EEDDA0CD4BFD67803AB0395296F8DBFC742E89BACF9677054"
+        ],
+        "allowOldInFinalUntil": null
+      }
+    }
+  ]
+}

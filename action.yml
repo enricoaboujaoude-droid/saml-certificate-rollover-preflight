@@ -1,0 +1,28 @@
+name: SAML Certificate Rollover Preflight
+description: Prove current, overlap, and final SAML signing-certificate trust before an IdP rollover.
+author: Practical Automation Lab
+branding:
+  icon: shield
+  color: blue
+inputs:
+  contract:
+    description: Path to the rollover contract JSON.
+    required: true
+  report:
+    description: Path for canonical JSON evidence.
+    required: false
+    default: saml-rollover-report.json
+  sarif:
+    description: Path for SARIF evidence.
+    required: false
+    default: saml-rollover-report.sarif.json
+outputs:
+  status:
+    description: PASS, REVIEW, or BLOCK.
+  block-count:
+    description: Number of blocking findings.
+  review-count:
+    description: Number of review findings.
+runs:
+  using: node20
+  main: src/action.mjs

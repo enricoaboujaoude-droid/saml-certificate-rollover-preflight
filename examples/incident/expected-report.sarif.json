@@ -1,0 +1,135 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "saml-certificate-rollover-preflight",
+          "version": "0.1.0",
+          "rules": [
+            {
+              "id": "SAML-ENTITY-ID-CHANGED",
+              "shortDescription": {
+                "text": "SAML-ENTITY-ID-CHANGED"
+              }
+            },
+            {
+              "id": "SAML-ENTITY-ID-POLICY",
+              "shortDescription": {
+                "text": "SAML-ENTITY-ID-POLICY"
+              }
+            },
+            {
+              "id": "SAML-SSO-ENDPOINT-CHANGED",
+              "shortDescription": {
+                "text": "SAML-SSO-ENDPOINT-CHANGED"
+              }
+            },
+            {
+              "id": "SAML-WEAK-SIGNATURE-ALGORITHM",
+              "shortDescription": {
+                "text": "SAML-WEAK-SIGNATURE-ALGORITHM"
+              }
+            },
+            {
+              "id": "SAML-METADATA-EXPIRY-WINDOW",
+              "shortDescription": {
+                "text": "SAML-METADATA-EXPIRY-WINDOW"
+              }
+            },
+            {
+              "id": "SAML-CURRENT-REJECTS-OLD",
+              "shortDescription": {
+                "text": "SAML-CURRENT-REJECTS-OLD"
+              }
+            },
+            {
+              "id": "SAML-OVERLAP-INCOMPLETE",
+              "shortDescription": {
+                "text": "SAML-OVERLAP-INCOMPLETE"
+              }
+            },
+            {
+              "id": "SAML-FINAL-REJECTS-NEW",
+              "shortDescription": {
+                "text": "SAML-FINAL-REJECTS-NEW"
+              }
+            },
+            {
+              "id": "SAML-FINAL-RETAINS-OLD",
+              "shortDescription": {
+                "text": "SAML-FINAL-RETAINS-OLD"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SAML-ENTITY-ID-CHANGED",
+          "level": "error",
+          "message": {
+            "text": "entityID changes during a certificate-only rollover."
+          }
+        },
+        {
+          "ruleId": "SAML-ENTITY-ID-POLICY",
+          "level": "error",
+          "message": {
+            "text": "Metadata does not match requiredEntityId."
+          }
+        },
+        {
+          "ruleId": "SAML-SSO-ENDPOINT-CHANGED",
+          "level": "error",
+          "message": {
+            "text": "SSO endpoint or binding changes during a certificate-only rollover."
+          }
+        },
+        {
+          "ruleId": "SAML-WEAK-SIGNATURE-ALGORITHM",
+          "level": "error",
+          "message": {
+            "text": "next metadata advertises a weak signature algorithm."
+          }
+        },
+        {
+          "ruleId": "SAML-METADATA-EXPIRY-WINDOW",
+          "level": "warning",
+          "message": {
+            "text": "next metadata expires within 30 days."
+          }
+        },
+        {
+          "ruleId": "SAML-CURRENT-REJECTS-OLD",
+          "level": "error",
+          "message": {
+            "text": "Current trust does not accept every current signing certificate."
+          }
+        },
+        {
+          "ruleId": "SAML-OVERLAP-INCOMPLETE",
+          "level": "error",
+          "message": {
+            "text": "Overlap trust must accept every old and new signing certificate."
+          }
+        },
+        {
+          "ruleId": "SAML-FINAL-REJECTS-NEW",
+          "level": "error",
+          "message": {
+            "text": "Final trust does not accept every new signing certificate."
+          }
+        },
+        {
+          "ruleId": "SAML-FINAL-RETAINS-OLD",
+          "level": "error",
+          "message": {
+            "text": "Final trust retains an old signer beyond policy."
+          }
+        }
+      ]
+    }
+  ]
+}
