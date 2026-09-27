@@ -1,5 +1,7 @@
 # SAML Certificate Rollover Preflight
 
+[![CI](https://github.com/enricoaboujaoude-droid/saml-certificate-rollover-preflight/actions/workflows/test.yml/badge.svg)](https://github.com/enricoaboujaoude-droid/saml-certificate-rollover-preflight/actions/workflows/test.yml) [![Release](https://img.shields.io/github/v/release/enricoaboujaoude-droid/saml-certificate-rollover-preflight)](https://github.com/enricoaboujaoude-droid/saml-certificate-rollover-preflight/releases/latest) [![Downloads](https://img.shields.io/github/downloads/enricoaboujaoude-droid/saml-certificate-rollover-preflight/total)](https://github.com/enricoaboujaoude-droid/saml-certificate-rollover-preflight/releases)
+
 Prove a SAML IdP signing-certificate rollover before it breaks enterprise SSO. This deterministic, browser-local tool compares current and next IdP metadata against **current → overlap → final** SP trust sets and emits an old/new signer acceptance matrix.
 
 It blocks when current trust rejects the old signer, overlap does not accept both signer sets, final rejects the new signer, or final retains an old-only signer beyond policy. It also detects unexpected `entityID`, SSO endpoint, binding, weak-algorithm, duplicate-certificate, metadata-expiry, and private-key changes.
@@ -21,6 +23,14 @@ GitHub Action:
 ```
 
 The Action writes canonical JSON and SARIF evidence. The static `index.html` performs the same analysis in the browser; inputs never leave the device.
+
+## Download
+
+The [v0.1.0 release](https://github.com/enricoaboujaoude-droid/saml-certificate-rollover-preflight/releases/tag/v0.1.0) contains the npm-compatible TGZ, a complete source ZIP, and SHA-256 checksums. After downloading the TGZ:
+
+```bash
+npx ./saml-certificate-rollover-preflight-0.1.0.tgz examples/safe/contract.json --json
+```
 
 ## Contract
 
